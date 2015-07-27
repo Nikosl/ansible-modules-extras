@@ -148,6 +148,9 @@ def iscsi_get_cached_nodes(module, portal=None):
 
 def iscsi_discover(module, portal, port):
 
+    if ':' in portal:
+        portal = '[%s]' % portal
+
     cmd = '%s --mode discovery --type sendtargets --portal %s:%s' % (iscsiadm_cmd, portal, port)
     (rc, out, err) = module.run_command(cmd)
 
